@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ChatGPT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="shortcut icon" href="https://chat.openai.com/favicon.ico" type="image/x-icon">
+    <style>
+        .right2 {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="left-section">
+            <div class="sidenav">
+                <button class="sidenav-btn"><svg stroke="currentColor" fill="none" stroke-width="1.5"
+                        viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" height="1em"
+                        width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    <span>New Chat</span></button>
+                <div class="chats">
+                    <div class="opacity-50">Today</div>
+                    {% for chat in myChats %}
+
+                    <div class="chat">
+                        <div><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"
+                                stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" height="1em" width="1em"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg></div>
+                        <div>{{chat.question}}</div>
+                    </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="right-section">
+            <div>
+                <div class="GPT">
+                    <Button class="btn-custom-GPT">
+                        <span class="svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none"
+                                class="h-4 w-4 transition-colors text-brand-green" width="16" height="16"
+                                stroke-width="2">
+                                <path
+                                    d="M9.586 1.526A.6.6 0 0 0 8.553 1l-6.8 7.6a.6.6 0 0 0 .447 1h5.258l-1.044 4.874A.6.6 0 0 0 7.447 15l6.8-7.6a.6.6 0 0 0-.447-1H8.542l1.044-4.874Z"
+                                    fill="currentColor"></path>
+                            </svg></span>
+                        <span>GPT-3.5</span>
+                    </Button>
+                    <Button class="btn-custom-GPT4">
+                        <span class="svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none"
+                                class="h-4 w-4 transition-colors group-hover/button:text-brand-purple" width="16"
+                                height="16" stroke-width="2">
+                                <path
+                                    d="M12.784 1.442a.8.8 0 0 0-1.569 0l-.191.953a.8.8 0 0 1-.628.628l-.953.19a.8.8 0 0 0 0 1.57l.953.19a.8.8 0 0 1 .628.629l.19.953a.8.8 0 0 0 1.57 0l.19-.953a.8.8 0 0 1 .629-.628l.953-.19a.8.8 0 0 0 0-1.57l-.953-.19a.8.8 0 0 1-.628-.629l-.19-.953h-.002ZM5.559 4.546a.8.8 0 0 0-1.519 0l-.546 1.64a.8.8 0 0 1-.507.507l-1.64.546a.8.8 0 0 0 0 1.519l1.64.547a.8.8 0 0 1 .507.505l.546 1.641a.8.8 0 0 0 1.519 0l.546-1.64a.8.8 0 0 1 .506-.507l1.641-.546a.8.8 0 0 0 0-1.519l-1.64-.546a.8.8 0 0 1-.507-.506L5.56 4.546Zm5.6 6.4a.8.8 0 0 0-1.519 0l-.147.44a.8.8 0 0 1-.505.507l-.441.146a.8.8 0 0 0 0 1.519l.44.146a.8.8 0 0 1 .507.506l.146.441a.8.8 0 0 0 1.519 0l.147-.44a.8.8 0 0 1 .506-.507l.44-.146a.8.8 0 0 0 0-1.519l-.44-.147a.8.8 0 0 1-.507-.505l-.146-.441Z"
+                                    fill="currentColor"></path>
+                            </svg></span>
+                        <span>GPT-4</span>
+                        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                aria-hidden="true" stroke-width="2"
+                                class="h-4 w-4 ml-0.5 h-4 w-4 transition-colors sm:ml-0 group-hover/options:text-gray-500 !text-gray-500 -ml-2 group-hover/button:text-brand-purple">
+                                <path fill-rule="evenodd"
+                                    d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z"
+                                    clip-rule="evenodd"></path>
+                            </svg></span>
+                    </Button>
+                </div>
+            </div>
+            <div class="name">ChatGPT</div>
+
+            <div class="container" id="col">
+                <button class=" btn-custom ">
+                    <div class="btn-text">Help me pick</div>
+                    <div class="opacity-50">a gift for my dad who loves fishing</div>
+                </button>
+                <button class=" btn-custom ">
+                    <div class="btn-text">Give me ideas</div>
+                    <div class="opacity-50">for what to do with my kid's art</div>
+                </button>
+                <button class=" btn-custom ">
+                    <div class="btn-text">Explain superconductors</div>
+                    <div class="opacity-50">Like I am a five year old</div>
+                </button>
+                <button class=" btn-custom ">
+                    <div class="btn-text">Come up with concepts</div>
+                    <div class="opacity-50">for a retro style arcade game</div>
+                </button>
+            </div>
+            <div class="input">
+                <input type="text" class="text" placeholder="Send a message" id="questioninput">
+                <button id="sendButton">
+                    <img height="30px" src="{{url_for('static', filename='icons8-sent-48-removebg-preview.png')}}"
+                        align="middle" />
+                </button>
+            </div>
+            <div class="preview">
+                Free Research Preview. ChatGPT may produce inaccurate information about people, places, or facts. <a
+                    href="https://help.openai.com/en/articles/6825453-chatgpt-release-notes">ChatGPT August 3
+                    Version.></a>
+            </div>
+        </div>
+
+        <div class="right2">
+            <div class="box1 box">
+                <img width="30px"
+                    src="https://chat.openai.com/_next/image?url=https%3A%2F%2Fs.gravatar.com%2Favatar%2Fad4465468a9187c1ecba16eab2e27c57%3Fs%3D480%26r%3Dpg%26d%3Dhttps%253A%252F%252Fcdn.auth0.com%252Favatars%252Fes.png&w=96&q=75"
+                    alt="">
+                <div id="question">
+                    Loading...
+                </div>
+            </div>
+            <div class="box2">
+                <div class="box">
+                    <img width="30px" src="https://chat.openai.com/favicon.ico" alt="">
+                    <div id="solution">
+                        Loading...
+                    </div>
+                </div>
+            </div>
+            <div class="input margin ">
+                <input type="text" class="text" placeholder="Send a message">
+                <button>
+                    <img height="30px" src="{{url_for('static', filename='icons8-sent-48-removebg-preview.png')}}"
+                        align="middle" />
+                </button>
+            </div>
+            <div class="preview">
+                Free Research Preview. ChatGPT may produce inaccurate information about people, places, or facts. <a
+                    href="https://help.openai.com/en/articles/6825453-chatgpt-release-notes">ChatGPT August 3
+                    Version.</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <script src="static/js/script.js"></script>
+</body>
+
+</html>
